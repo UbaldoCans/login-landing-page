@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <div *ngIf="!loading" class="body">
+     <img class="logo" src="assets/img/login.png" alt="login">
+     <h2>Registrar usuario</h2>
+     <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario">
+         <div class="form-floating mb-3">
+           <input type="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="name@example.com">
+           <label >Correo</label>
+           <span *ngIf="registrarUsuario.get('email')?.hasError('required') && registrarUsuario.get('email')?.touched" class="text-danger errorLabel">
+              El <strong>correo</strong> es requerido
+           </span>
+           <span *ngIf="registrarUsuario.get('email')?.hasError('email') && registrarUsuario.get('email')?.touched" class="text-danger errorLabel">
+              El <strong>correo</strong> es invalido
+           </span>
+         </div>
+         <div class="form-floating mb-3">
+           <input type="password"
+                  class="form-control"
+                  formControlName="password"
+                  placeholder="Password">
+           <label>Contraseña</label>
+           <span *ngIf="registrarUsuario.get('password')?.hasError('required') && registrarUsuario.get('password')?.touched" class="text-danger errorLabel">
+                La<strong>contraseña</strong> es requerida
+           </span>
+           <span *ngIf="registrarUsuario.get('password')?.hasError('minlength') && registrarUsuario.get('password')?.touched" class="text-danger errorLabel">
+              La <strong>contraseña</strong> debe tener un minimo de 8 caracteres
+           </span>
+         </div>
+         <div class="form-floating mb-3">
+          <input type="password"
+                 class="form-control"
+                 formControlName="repeatPassword"
+                 placeholder="Repeat password">
+          <label>Repetir contraseña</label>
+          <span *ngIf="registrarUsuario.get('repeatPassword')?.hasError('required') && registrarUsuario.get('repeatPassword')?.touched" class="text-danger errorLabel">
+              vuelve a escribir la <strong>contraseña</strong>
+         </span>
+        </div>
+         <div class="d-grid gap-2 mb-3">
+             <button class="btn btn-primary btn-lg" [disabled]="registrarUsuario.invalid" type="submit">Registrar</button>
+         </div>
+          <p>¿Perdiste tu contraseña? <a  routerLink='/recuperar-password' >Recuperala</a></p>
+          <a [routerLink]="['/login']" routerLinkActive="router-link-active">Volver</a>
+       </form>
+  </div>
+  <app-spinner *ngIf="loading"></app-spinner>
+</div>
+
